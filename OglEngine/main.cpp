@@ -72,8 +72,8 @@ int main()
 
     // build and compile our shader zprogram  lightingShader
     // ------------------------------------
-    Shader lightingShader("Shaders/Vertex/Basic_lighting.vs", "Shaders/Fragment/Basic_lighting.fs");
-    Shader lightCubeShader("Shaders/Vertex/1.colors.vs", "Shaders/Fragment/1.colors.fs");
+    Shader lightingShader("Shaders/Vertex/Materials.vs", "Shaders/Fragment/Materials.fs");
+    Shader lightCubeShader("Shaders/Vertex/1.light_cube.vs", "Shaders/Fragment/1.light_cube.fs");
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     float vertices[] = {
@@ -173,9 +173,28 @@ int main()
 
         // be sure to activate shader when setting uniforms/drawing objects
         lightingShader.use();
-        lightingShader.setVec3("lightPos", lightPos);
-        lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-        lightingShader.setVec3("lightColor", 1.f,1.0f, 1.0f);
+        lightingShader.setVec3("light.position", lightPos);
+        lightingShader.setVec3("viewPos", camera.Position);
+
+        // light properties
+        glm::vec3 lightColor;
+        lightColor.x = static_cast<float>(sin(glfwGetTime() * 2.0));
+        lightColor.y = static_cast<float>(sin(glfwGetTime() * 0.7));
+        lightColor.z = static_cast<float>(sin(glfwGetTime() * 1.3));
+        glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f); // decrease the influence
+        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
+        lightingShader.setVec3("light.ambient", ambientColor);
+        lightingShader.setVec3("light.diffuse", diffuseColor);
+        lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
+        // material properties
+        lightingShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+        lightingShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+        lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f); // specular lighting doesn't have full effect on this object's material
+        lightingShader.setFloat("material.shininess", 32.0f);
+
+
+
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
             (float)screen_width / (float)screen_height, 0.1f, 100.0f);

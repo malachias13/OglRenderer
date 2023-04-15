@@ -55,5 +55,11 @@
     <None Include="Shaders\Fragment\Basic_lighting.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="Shaders\Fragment\Materials.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="Shaders\Vertex\Materials.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
