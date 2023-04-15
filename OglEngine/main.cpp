@@ -1,4 +1,4 @@
-#include "glad/glad.h"
+#include <glad/glad.h>
 #include "GLFW/glfw3.h"
 
 #include "glm/glm.hpp"
@@ -70,11 +70,10 @@ int main()
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
 
-    // build and compile our shader zprogram
+    // build and compile our shader zprogram  lightingShader
     // ------------------------------------
-    Shader lightingShader("Shaders/Vertex/1.colors.vs", "Shaders/Fragment/1.colors.fs");
-    Shader lightCubeShader("Shaders/Vertex/1.light_cube.vs", "Shaders/Fragment/1.light_cube.fs");
-
+    Shader lightingShader("Shaders/Vertex/Basic_lighting.vs", "Shaders/Fragment/Basic_lighting.fs");
+    Shader lightCubeShader("Shaders/Vertex/1.colors.vs", "Shaders/Fragment/1.colors.fs");
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     float vertices[] = {
@@ -176,7 +175,7 @@ int main()
         lightingShader.use();
         lightingShader.setVec3("lightPos", lightPos);
         lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-        lightingShader.setVec3("lightColor", 1.0f,1.0f, 1.0f);
+        lightingShader.setVec3("lightColor", 1.f,1.0f, 1.0f);
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
             (float)screen_width / (float)screen_height, 0.1f, 100.0f);
@@ -201,8 +200,8 @@ int main()
         model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
         lightCubeShader.setMat4("model", model);
 
-        glBindVertexArray(lightCubeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+          glBindVertexArray(lightCubeVAO);
+          glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
         glfwSwapBuffers(window);

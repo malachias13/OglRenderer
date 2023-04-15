@@ -138,8 +138,10 @@
   <ItemGroup>
     <None Include="Shaders\Fragment\1.colors.fs" />
     <None Include="Shaders\Fragment\1.light_cube.fs" />
+    <None Include="Shaders\Fragment\Basic_lighting.fs" />
     <None Include="Shaders\Vertex\1.colors.vs" />
     <None Include="Shaders\Vertex\1.light_cube.vs" />
+    <None Include="Shaders\Vertex\Basic_lighting.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

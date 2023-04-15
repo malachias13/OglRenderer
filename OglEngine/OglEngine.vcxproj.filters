@@ -49,5 +49,11 @@
     <None Include="Shaders\Vertex\1.light_cube.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="Shaders\Vertex\Basic_lighting.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="Shaders\Fragment\Basic_lighting.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
