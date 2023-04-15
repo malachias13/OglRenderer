@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +132,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OpenGLCode\Camera.cpp" />
     <ClCompile Include="OpenGLCode\Shader.cpp" />
+    <ClCompile Include="stb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OpenGLCode\Camera.h" />
@@ -144,6 +147,9 @@
     <None Include="Shaders\Vertex\1.light_cube.vs" />
     <None Include="Shaders\Vertex\Basic_lighting.vs" />
     <None Include="Shaders\Vertex\Materials.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Images\container2.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
