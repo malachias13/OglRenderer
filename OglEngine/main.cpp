@@ -161,13 +161,14 @@ int main()
     glEnableVertexAttribArray(0);
 
     // load textures (we now use a utility function to keep the code more organized)
-
-    std::string path = "Images/container2.png";
-    unsigned int diffuseMap = loadTexture(path.c_str());
+    unsigned int diffuseMap = loadTexture("Images/container2.png");
     
+    unsigned int specularMap = loadTexture("Images/container2_specular.png");
+
     // shader configuration
     lightingShader.use();
     lightingShader.setInt("material.diffuse", 0);
+    lightingShader.setInt("material.specular", 1);
 
 
     
@@ -204,16 +205,20 @@ int main()
         lightColor.z = static_cast<float>(sin(glfwGetTime() * 1.3));
         glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f); // decrease the influence
         glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
-        lightingShader.setVec3("light.ambient", ambientColor);
-        lightingShader.setVec3("light.diffuse", diffuseColor);
+
+
+        lightingShader.setVec3("light.ambient",  0.2f, 0.2f, 0.2f);
+        lightingShader.setVec3("light.diffuse",  0.5f, 0.5f, 0.5f);
         lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
         // material properties
-        lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f); // specular lighting doesn't have full effect on this object's material
-        lightingShader.setFloat("material.shininess", 32.0f);
+        lightingShader.setFloat("material.shininess", 64.0f);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
+
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, specularMap);
 
 
 
