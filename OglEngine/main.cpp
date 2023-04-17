@@ -210,28 +210,9 @@ int main()
         lightingShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
         lightingShader.setVec3("viewPos", camera.Position);
 
-        // light properties
-        glm::vec3 lightColor;
-        lightColor.x = static_cast<float>(sin(glfwGetTime() * 2.0));
-        lightColor.y = static_cast<float>(sin(glfwGetTime() * 0.7));
-        lightColor.z = static_cast<float>(sin(glfwGetTime() * 1.3));
-        glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f); // decrease the influence
-        glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
-
-
         lightingShader.setVec3("light.ambient",  0.2f, 0.2f, 0.2f);
         lightingShader.setVec3("light.diffuse",  0.5f, 0.5f, 0.5f);
         lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-
-        // material properties
-        lightingShader.setFloat("material.shininess", 64.0f);
-
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, diffuseMap);
-
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, specularMap);
-
 
 
         // view/projection transformations
@@ -242,6 +223,18 @@ int main()
         lightingShader.setMat4("view", view);
 
         // world transformation
+        glm::mat4 model = glm::mat4(1.0f);
+        lightingShader.setMat4("model", model);
+
+        // material properties
+        lightingShader.setFloat("material.shininess", 64.0f);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, diffuseMap);
+
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, specularMap);
+
 
         for (int i = 0; i < 10; i++) {
             glm::mat4 model = glm::mat4(1.0f);
@@ -274,20 +267,18 @@ int main()
 
         }
 
-
-
         // draw the lamp object
-        glm::mat4 model = glm::mat4(1.0f);
-        lightCubeShader.use();
-        lightCubeShader.setMat4("projection", projection);
-        lightCubeShader.setMat4("view", view);
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, lightPos);
-        model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
-        lightCubeShader.setMat4("model", model);
+        //glm::mat4 model = glm::mat4(1.0f); 
+        //lightCubeShader.use();
+        //lightCubeShader.setMat4("projection", projection);
+        //lightCubeShader.setMat4("view", view);
+        //model = glm::mat4(1.0f);
+        //model = glm::translate(model, lightPos);
+        //model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+        //lightCubeShader.setMat4("model", model);
 
-          glBindVertexArray(lightCubeVAO);
-          glDrawArrays(GL_TRIANGLES, 0, 36);
+        //  glBindVertexArray(lightCubeVAO);
+        //  glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
         glfwSwapBuffers(window);
